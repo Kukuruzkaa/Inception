@@ -28,13 +28,13 @@ RUN apk update && apk upgrade && apk add --no-cache \
       /etc/php8/php-fpm.d/www.conf && \
     rm -f /var/cache/apk/*
 
-RUN mkdir /run/php
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 WORKDIR /var/www
 COPY ./requirements/wordpress/conf/wp-start.sh .
 RUN rm -f /var/www/wordpress/wp-config-sample.php
+RUN mkdir /run/php
 
 #ENTRYPOINT ["tail", "-f"] 
 
