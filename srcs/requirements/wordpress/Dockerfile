@@ -29,14 +29,14 @@ RUN apk update && apk upgrade && apk add --no-cache \
     rm -f /var/cache/apk/*
 
 RUN mkdir /run/php
-#RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-#RUN chmod +x wp-cli.phar
-#RUN mv wp-cli.phar /usr/local/bin/wp
-#RUN  wp core download --allow-root
-#WORKDIR /var/www
-#COPY ./requirements/wordpress/conf/wp-start.sh .
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar
+RUN mv wp-cli.phar /usr/local/bin/wp
+WORKDIR /var/www
+COPY ./requirements/wordpress/conf/wp-start.sh .
+RUN rm -f /var/www/wordpress/wp-config-sample.php
 
-ENTRYPOINT ["tail", "-f"] 
+#ENTRYPOINT ["tail", "-f"] 
 
-#[ "sh", "./wp-start.sh" ]
+ENTRYPOINT [ "sh", "./wp-start.sh" ]
 
