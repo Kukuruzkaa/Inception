@@ -1,9 +1,6 @@
 #!bin/sh
 
-# if [ ! -f "/var/www/wp-config.php" ]; then
-
-# EOF
-# fi
+if [ ! -f "/var/www/wp-config.php" ]; then
 
 set -xv
 
@@ -13,5 +10,7 @@ wp config create --dbname=${DB_NAME} --dbuser=${DB_USER} --prompt=${DB_PASS} --d
 wp core install --url=${DOMAIN_NAME} --title=${WP_TITLE} --admin_user=${WP_ADMIN_USER} \
     --admin_email=${WP_ADMIN_EMAIL} --prompt=${WP_PASS} 
 wp user create --user=${WP_USER} --admin_email=${WP_USER_EMAIL} --prompt=${WP_PASS} 
+fi
+
 
 exec php-fpm8 -F
