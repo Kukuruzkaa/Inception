@@ -45,6 +45,8 @@ services:
         DB_USER: ${DB_USER}
         DB_PASS: ${DB_PASS}
     container_name: wordpress
+    expose:
+      - 9000
     depends_on:
       - mariadb
     restart: always
@@ -52,9 +54,7 @@ services:
       - inception
     volumes:
       - wp-volume:/var/www/html
-    expose:
-      - 9000
-
+    
 volumes:
   wp-volume:
     driver_opts:

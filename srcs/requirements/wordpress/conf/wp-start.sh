@@ -20,8 +20,8 @@ then
             --url=${DOMAIN_NAME} \
             --title=${WP_TITLE} \
             --admin_user=${WP_ADMIN_USER} \
-            --prompt=${WP_PASS}
-            --admin_email=${WP_ADMIN_EMAIL} 
+            --prompt=${WP_PASS} \
+            --admin_email=${WP_ADMIN_EMAIL} \
             --allow-root
 
     wp user create \
