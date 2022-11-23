@@ -1,6 +1,6 @@
 #!bin/sh
 
-if [ ! -f "/var/www/wp-config.php" ]; 
+if [ ! -f "/var/www/html/wp-config.php" ]; 
 then
 
     set -xv

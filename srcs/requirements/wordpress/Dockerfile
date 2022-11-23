@@ -18,6 +18,7 @@ RUN apk update && apk upgrade && apk add --no-cache \
     php${PHP_VERSION}-zip \
     php${PHP_VERSION}-redis \
     php${PHO_VERSION}-cli \
+    php${PHP_VERSION}-phar \
     wget \
     unzip && \
     sed -i "s|listen = 127.0.0.1:9000|listen = 9000|g" \
@@ -29,14 +30,15 @@ RUN apk update && apk upgrade && apk add --no-cache \
     rm -f /var/cache/apk/*
 
 COPY  requirements/wordpress/conf/wp-start.sh /var/wp-start.sh
+RUN chmod +x /var/wp-start.sh
 RUN mkdir /run/php
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
-RUN rm -f /var/www/wordpress/wp-config-sample.php
+RUN rm -f /var/www/html/wordpress/wp-config-sample.php
 
 EXPOSE 9000
 #ENTRYPOINT ["tail", "-f"] 
 
-ENTRYPOINT [ "sh", "./wp-start.sh" ]
+ENTRYPOINT [ "sh", "/var/wp-start.sh" ]
