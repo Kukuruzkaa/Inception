@@ -15,7 +15,7 @@ services:
     volumes:
       - ./requirements/nginx/conf/:/etc/nginx/http.d/
       - ./requirements/nginx/tools:/etc/nginx/ssl/
-      - wp-volume:/var/www/
+      - wp-volume:/var/www/html
     restart: always
 
   mariadb:
@@ -28,8 +28,8 @@ services:
         DB_PASS: ${DB_PASS}
         DB_ROOT: ${DB_ROOT}
     container_name: mariadb
-    ports:
-      - "3306:3306"
+    expose:
+      - 3306
     networks:
       - inception
     volumes:
@@ -51,7 +51,9 @@ services:
     networks:
       - inception
     volumes:
-      - wp-volume:/var/www/
+      - wp-volume:/var/www/html
+    expose:
+      - 9000
 
 volumes:
   wp-volume:
