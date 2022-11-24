@@ -28,6 +28,7 @@ services:
         DB_PASS: ${DB_PASS}
         DB_ROOT: ${DB_ROOT}
     container_name: mariadb
+    env_file: .env
     expose:
       - 3306
     networks:
@@ -45,6 +46,7 @@ services:
         DB_USER: ${DB_USER}
         DB_PASS: ${DB_PASS}
     container_name: wordpress
+    env_file: .env
     expose:
       - 9000
     depends_on:

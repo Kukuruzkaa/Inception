@@ -7,27 +7,21 @@ then
 
     sleep 5
     cd /var/www/html
-    wp download core --allow-root
-    wp config create \
-            --dbname=${DB_NAME} \
-            --dbuser=${DB_USER} \
-            --prompt=${DB_PASS} \
-            --dbcharset="utf8" \
-            --dbhost=mariadb:3306 \
-            --allow-root
-            
+    rm -rf /var/www/html/wp-config-sample.php
+    wp core download --allow-root
+    wp config create --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASS} --dbhost='mariadb:3306' --dbcharset="utf8" 
+                  
     wp core install \
             --url=${DOMAIN_NAME} \
             --title=${WP_TITLE} \
             --admin_user=${WP_ADMIN_USER} \
-            --prompt=${WP_PASS} \
+            --admin_password=${WP_ADMIN_PASS} \
             --admin_email=${WP_ADMIN_EMAIL} \
             --allow-root
 
-    wp user create \
-            --user=${WP_USER} \
-            --user_email=${WP_EMAIL} \
-            --prompt=${WP_PASS} \
+    wp user create $WP_USER $WP_EMAIL \
+	    --role=author \
+            --user_pass=${WP_PASS} \
             --allow-root
     chown -R www-data:www-data /var/www/html/
 fi

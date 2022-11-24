@@ -19,13 +19,15 @@ RUN apk update && apk upgrade && apk add --no-cache \
     php${PHP_VERSION}-redis \
     php${PHO_VERSION}-cli \
     php${PHP_VERSION}-phar \
+    php${PHP_VERSION}-gd \
     wget \
+    mysql-client \
     unzip && \
     sed -i "s|listen = 127.0.0.1:9000|listen = 9000|g" \
       /etc/php8/php-fpm.d/www.conf && \
-    sed -i "s|;listen.owner = nobody|listen.owner = nobody|g" \
+    sed -i "s|;listen.owner = nobody|listen.owner = www-data|g" \
       /etc/php8/php-fpm.d/www.conf && \
-    sed -i "s|;listen.group = nobody|listen.group = nobody|g" \
+    sed -i "s|;listen.group = nobody|listen.group = www-data|g" \
       /etc/php8/php-fpm.d/www.conf && \
     rm -f /var/cache/apk/*
 
@@ -36,9 +38,7 @@ RUN mkdir /run/php
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
-RUN rm -f /var/www/html/wordpress/wp-config-sample.php
 
 EXPOSE 9000
-#ENTRYPOINT ["tail", "-f"] 
 
 ENTRYPOINT [ "sh", "/var/wp-start.sh" ]
