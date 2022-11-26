@@ -20,6 +20,10 @@ RUN apk update && apk upgrade && apk add --no-cache \
     php${PHO_VERSION}-cli \
     php${PHP_VERSION}-phar \
     php${PHP_VERSION}-gd \
+    php${PHP_VESRION}-imap \
+    php${PHP_VESRION}-iconv \
+    php${PHP_VESRION}-intl \
+    php${PHP_VESRION}-opcache \
     wget \
     mysql-client \
     unzip && \

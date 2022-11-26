@@ -19,6 +19,8 @@ then
             --admin_email=${WP_ADMIN_EMAIL} \
             --allow-root
 
+    wp theme install twentyseventeen --activate
+
     wp user create $WP_USER $WP_EMAIL \
 	    --role=author \
             --user_pass=${WP_PASS} \
