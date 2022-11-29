@@ -1,8 +1,6 @@
 FROM alpine:3.16
-ARG PHP_VERSION=8 \
-    DB_NAME \
-    DB_USER \
-    DB_PASS
+ARG PHP_VERSION=8 
+   
 RUN apk update && apk upgrade && apk add --no-cache \
     php${PHP_VERSION} \
     php${PHP_VERSION}-fpm \
@@ -16,12 +14,9 @@ RUN apk update && apk upgrade && apk add --no-cache \
     php${PHP_VERSION}-openssl \
     php${PHP_VERSION}-xml \
     php${PHP_VERSION}-zip \
-    php${PHP_VERSION}-redis \
     php${PHO_VERSION}-cli \
     php${PHP_VERSION}-phar \
     php${PHP_VERSION}-gd \
-    php${PHP_VESRION}-imap \
-    php${PHP_VESRION}-iconv \
     php${PHP_VESRION}-intl \
     php${PHP_VESRION}-opcache \
     wget \

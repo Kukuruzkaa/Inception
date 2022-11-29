@@ -2,11 +2,7 @@
 
 if [ ! -d "/var/lib/mysql/mysql" ]; then
 
-	touch /var/lib/mysql/testfile_1.tst 
         chown -R mysql:mysql /var/lib/mysql
-
-        # init database
-      #  mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql --rpm
 
         tfile=`mktemp`
         if [ ! -f "$tfile" ]; then
@@ -15,7 +11,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 fi
 
 if [ ! -d "/var/lib/mysql/wordpress" ]; then
-	touch /var/lib/mysql/testfile_2.tst 
+	
         cat << EOF > /tmp/create_db.sql
 USE mysql;
 FLUSH PRIVILEGES;
@@ -29,7 +25,10 @@ GRANT ALL PRIVILEGES ON wordpress.* TO '${DB_USER}'@'%';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT}';
 FLUSH PRIVILEGES;
 EOF
-        # run init.sql
         /usr/bin/mysqld --user=mysql --bootstrap < /tmp/create_db.sql
-        #rm -f /tmp/create_db.sql
+        
 fi
+
+     /usr/bin/mysqld --skip-log-error
+
+
