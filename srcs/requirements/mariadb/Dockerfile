@@ -5,7 +5,7 @@ ARG DB_NAME \
     DB_ROOT \
     DB_PASS
 
-RUN apk update && apk add --no-cache mariadb mariadb-client
+RUN apk update && apk add --no-cache mariadb mariadb-client dumb-init
 
 RUN mkdir /var/run/mysqld; \
     chmod 777 /var/run/mysqld; \
@@ -23,4 +23,5 @@ EXPOSE 3306
 COPY requirements/mariadb/tools/mdb-start.sh .
 RUN chmod +x  mdb-start.sh
 USER mysql
-ENTRYPOINT ["sh", "mdb-start.sh"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["sh", "mdb-start.sh"]
