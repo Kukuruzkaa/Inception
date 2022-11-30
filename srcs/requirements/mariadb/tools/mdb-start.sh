@@ -1,18 +1,21 @@
 #!bin/sh
 
-if [ ! -d "/var/lib/mysql/mysql" ]; then
+if [ ! -d "/var/lib/mysql/mysql" ]; 
+then
 
         chown -R mysql:mysql /var/lib/mysql
 
         tfile=`mktemp`
-        if [ ! -f "$tfile" ]; then
+        if [ ! -f "$tfile" ]; 
+        then
                 return 1
         fi
 fi
 
-if [ ! -d "/var/lib/mysql/wordpress" ]; then
+if [ ! -d "/var/lib/mysql/wordpress" ]; 
+then
 	
-        cat << EOF > /tmp/create_db.sql
+        cat << EOF > /tmp/mdb-start.sql
 USE mysql;
 FLUSH PRIVILEGES;
 DELETE FROM     mysql.user WHERE User='';
@@ -25,7 +28,7 @@ GRANT ALL PRIVILEGES ON wordpress.* TO '${DB_USER}'@'%';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT}';
 FLUSH PRIVILEGES;
 EOF
-        /usr/bin/mysqld --user=mysql --bootstrap < /tmp/create_db.sql
+        /usr/bin/mysqld --user=mysql --bootstrap < /tmp/mdb-start.sql
         
 fi
 

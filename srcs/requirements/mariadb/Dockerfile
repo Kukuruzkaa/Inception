@@ -20,7 +20,7 @@ RUN mkdir /var/run/mysqld; \
 RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql --auth-root-authentication-method=normal
 EXPOSE 3306
 
-COPY requirements/mariadb/conf/create_db.sh .
-RUN chmod +x  create_db.sh
+COPY requirements/mariadb/tools/mdb-start.sh .
+RUN chmod +x  mdb-start.sh
 USER mysql
-ENTRYPOINT ["sh", "create_db.sh"]
+ENTRYPOINT ["sh", "mdb-start.sh"]

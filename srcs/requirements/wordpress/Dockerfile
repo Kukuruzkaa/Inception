@@ -30,7 +30,7 @@ RUN apk update && apk upgrade && apk add --no-cache \
       /etc/php8/php-fpm.d/www.conf && \
     rm -f /var/cache/apk/*
 
-COPY  requirements/wordpress/conf/wp-start.sh /var/wp-start.sh
+COPY  requirements/wordpress/tools/wp-start.sh /var/wp-start.sh
 RUN chmod +x /var/wp-start.sh
 RUN mkdir /run/php
 
